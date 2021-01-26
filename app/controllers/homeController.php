@@ -1,2 +1,5 @@
 <?php
-echo "Hello World";
+
+require 'app/persistences/blogPostData.php';
+
+var_dump(lastBlogPosts($pdo));
