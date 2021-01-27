@@ -6,7 +6,7 @@ ini_set('display_startup_errors', true);
 ini_set('log_errors', false);
 
 //Appel de la BDD
-require 'config/database.php';
+include_once 'config/database.php';
 
 $map = [
     'home' => 'homeController.php',
