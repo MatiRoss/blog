@@ -15,8 +15,9 @@ LIMIT 10");
 //Fonction qui retourne un article et son auteur
 function blogPostById($pdo, $idposts)
 {
-    $statement = $pdo->query("SELECT title, authors.name FROM posts INNER JOIN authors ON authors_idauthors=idauthors WHERE idposts=$idposts");
-    $result = $statement->fetch(\PDO::FETCH_ASSOC);
+    $statement = $pdo->prepare("SELECT title, authors.name FROM posts INNER JOIN authors ON authors_idauthors=idauthors WHERE idposts=$idposts");
+    $statement->execute();
+    $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
     return $result;
 }
 
@@ -29,4 +30,15 @@ function commentsByBlogPost($pdo, $idposts)
 }
 
 //Fonction qui crée un article
-function blogPostCreate($pdo,)
+function blogPostCreate($pdo)
+{
+    $statement = $pdo->prepare("INSERT INTO `posts` (title, text,date_start,date_end,importance,authors_idauthors) VALUES (:titre, :texte, :datedepart, :datefin, :degree, :idauthors");
+    $statement->bindParam(':titre', $title);
+    $statement->bindParam(':texte', $text);
+    $statement->bindParam(':datedepart', $datestart);
+    $statement->bindParam(':datefin', $dateend);
+    $statement->bindParam(':degree', $importance);
+    $statement->bindParam(':idauthors', $idauthors);
+    $statement->execute();
+    return "Votre article a été ajouté avec succès";
+}
