@@ -1,9 +1,10 @@
+
 <?php
-$posts = lastBlogPosts($pdo);
+
 if (empty($posts)) {
-    echo "Aucun article à afficher";
+    echo "Il n'y a aucun article qui correspond à votre recherche";
 } else {
     foreach ($posts as $row) {
-        echo "<li>" . $row['title'] . " - " . $row['name'] . "</li>";
+        echo "<li>" . $row['title'] . " - par " . $row['name'] . "</li>";
     }
 }
