@@ -1,37 +1,21 @@
-<main>
-    <div id="entier">
-        <section class="question">
-            <p>Qui êtes-vous?</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Publier un article</title>
+    <meta charset="utf-8">
+</head>
+<body>
+<form method="POST" action="/index.php?action=createpost">
+    <input type="text" name="title" placeholder="Titre" /><br />
+    <textarea name="content" placeholder="Contenu de l'article"></textarea><br />
+    <p>Date de publication</p>
+    <input type="date" name="datestart"><br>
+    <p>Date de fin de publication</p>
+    <input type="date" name="dateend"><br>
+    <input type="number" name="authorid" placeholder="Votre id"><br>
+    <input type="submit" value="Publier l'article" name="submit"/>
+</form>
+<br />
 
-            <div>
-                <input type="radio" id="pro" name="genre" value="pro" checked>
-                <label for="pro">Professionnel</label>
-            </div>
-
-            <div>
-                <input type="radio" id="particulier" name="genre" value="particulier">
-                <label for="particulier">Particulier</label>
-            </div>
-        </section>
-        <section class="formulaire">
-            <form action="https://httpbin.org/post" method="POST">
-                <div>
-                    <label for="name">Nom :</label>
-                    <input type="text" id="name" name="user_name">
-                </div>
-                <div>
-                    <label for="mail">E-mail :</label>
-                    <input type="email" id="mail" name="user_mail" required>
-                </div>
-                <div>
-                    <label for="msg">Message :</label>
-                    <textarea id="msg" name="user_message"></textarea>
-                </div>
-                <div class="button">
-                    <button type="submit">Envoyer le message</button>
-                </div>
-            </form>
-        </section>
-    </div>
-
-</main>
+</body>
+</html>

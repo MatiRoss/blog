@@ -3,7 +3,7 @@
 // Fonction qui prépare une requête SQL(Afficher les 10 derniers articles du blog), l'execute puis affiche le resultat
 function lastBlogPosts($pdo)
 {
-    $statement = $pdo->prepare("SELECT title,authors.name
+    $statement = $pdo->prepare("SELECT idposts, title,authors.name
 FROM posts INNER JOIN authors ON authors_idauthors=idauthors
 ORDER BY date_start DESC
 LIMIT 10");
@@ -30,15 +30,14 @@ function commentsByBlogPost($pdo, $idposts)
 }
 
 //Fonction qui crée un article
-function blogPostCreate($pdo)
+function blogPostCreate($pdo, $tab):bool
 {
-    $statement = $pdo->prepare("INSERT INTO `posts` (title, text,date_start,date_end,importance,authors_idauthors) VALUES (:titre, :texte, :datedepart, :datefin, :degree, :idauthors");
-    $statement->bindParam(':titre', $title);
-    $statement->bindParam(':texte', $text);
-    $statement->bindParam(':datedepart', $datestart);
-    $statement->bindParam(':datefin', $dateend);
-    $statement->bindParam(':degree', $importance);
-    $statement->bindParam(':idauthors', $idauthors);
-    $statement->execute();
-    return "Votre article a été ajouté avec succès";
+    $statement = $pdo->prepare('INSERT INTO posts (title, text,date_start,date_end,authors_idauthors) VALUES (?, ?, ?, ?, ?)');
+    $statement->bindParam(1, $tab['title'], PDO::PARAM_STR);
+    $statement->bindParam(2, $tab['content'], PDO::PARAM_STR);
+    $statement->bindParam(3, $tab['datestart'], PDO::PARAM_STR);
+    $statement->bindParam(4, $tab['dateend'], PDO::PARAM_STR);
+    $statement->bindParam(5, $tab['authorid'], PDO::PARAM_INT);
+    return $statement->execute();
 }
+
